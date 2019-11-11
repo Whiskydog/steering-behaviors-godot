@@ -4,7 +4,7 @@ extends KinematicBody2D
 var steer_func_ref
 
 var wander_circle: Node2D
-var target: Node2D
+var target
 
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
