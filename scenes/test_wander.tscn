@@ -10,7 +10,5 @@ script = ExtResource( 1 )
 current = true
 
 [node name="Steerable" parent="." instance=ExtResource( 2 )]
-wander_circle_dst = 40.0
-wander_circle_radius = 5.0
 max_speed = 50.0
 max_force = 2.0

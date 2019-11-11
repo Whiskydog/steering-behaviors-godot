@@ -1,11 +1,19 @@
 extends Node2D
 
+
 onready var global = $'/root/Global'
-onready var p = get_parent()
+
+var wander_angle = rand_range(-2*PI, 2*PI)
+export(float) var radius = 10.0
+export(float) var distance_from_parent = 20.0
 
 
 func _init():
     self.hide()
+
+
+func _ready():
+    self.position = Vector2.RIGHT * distance_from_parent
 
 
 func _process(delta):
@@ -14,9 +22,8 @@ func _process(delta):
 
 func _draw():
     if global.debug:
-        draw_circle(Vector2.ZERO, .5, Color.blue)
-        draw_circle_no_fill(Vector2.ZERO, p.wander_circle_radius, Color.blue)
-        draw_line(Vector2.ZERO, polar2cartesian(p.wander_circle_radius, p.wander_angle), Color.blue, 1.0, true)
+        draw_circle_no_fill(Vector2.ZERO, radius, Color.blue)
+        draw_line(Vector2.ZERO, polar2cartesian(radius, wander_angle), Color.blue, 1.0, true)
 
 
 func draw_circle_no_fill(center, radius, color):
@@ -29,8 +36,7 @@ func draw_circle_no_fill(center, radius, color):
 
 	for index_point in range(nb_points):
         draw_line(points_arc[index_point], points_arc[index_point + 1], color)
-        
 
-func _input(event):
-    if event.is_action('right') and event.is_pressed():
-        p.wander_angle += deg2rad(10)
+
+func parent_rotation():
+    return get_parent().rotation

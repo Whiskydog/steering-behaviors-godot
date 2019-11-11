@@ -84,10 +84,11 @@ func arrive(target) -> Vector2:
     return desired_velocity - p.velocity
 
 
-func wander(circle_center) -> Vector2:
-    p.wander_angle += randf() * deg2rad(ANGLE_CHANGE) - deg2rad(ANGLE_CHANGE) * .5
+func wander(wander_circle) -> Vector2:
+    wander_circle.wander_angle += randf() * deg2rad(ANGLE_CHANGE) - deg2rad(ANGLE_CHANGE) * .5
     #p.wander_angle = clamp(p.wander_angle, -2*PI, 2*PI)
-    return seek_pos(circle_center.global_position + polar2cartesian(p.wander_circle_radius, p.wander_angle + p.rotation))
+    return seek_pos(wander_circle.global_position + 
+            polar2cartesian(wander_circle.radius, wander_circle.wander_angle + wander_circle.parent_rotation()))
 
 
 func follow_flow_field(flow_field) -> Vector2:

@@ -2,24 +2,24 @@ extends KinematicBody2D
 
 
 var steer_func_ref
+
 var wander_circle: Node2D
 var target: Node2D
+
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
+var steering_force = Vector2.ZERO
+
 var steer_engine: Node = preload('steer_engine.gd').new()
 onready var global: Node = $'/root/Global'
-onready var wander_angle = rand_range(-2*PI, 2*PI)
-export(float) var wander_circle_dst = 20.0
-export(float) var wander_circle_radius = 10.0
+
 export(float) var slowing_distance = 100.0
 export(float) var max_speed: float = 260.0
 export(float) var max_force: float = 6.0
-var steering_force = Vector2()
 
 
 func _ready():
 	wander_circle = $'WanderCircle'
-	wander_circle.position = Vector2(wander_circle_dst, 0)
 	self.add_child(steer_engine)
 
 
