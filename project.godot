@@ -16,12 +16,18 @@ _global_script_class_icons={
 [application]
 
 config/name="Steering Behaviors Test"
-run/main_scene="res://scenes/test_seek.tscn"
+run/main_scene="res://scenes/test_obstacle.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://scripts/global.gd"
+SteeringEngine="*res://scripts/steer_engine.gd"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [input]
 
