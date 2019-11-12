@@ -10,4 +10,4 @@ script = ExtResource( 1 )
 current = true
 
 [node name="Steerable" parent="." instance=ExtResource( 2 )]
-max_speed = 100.0
+max_speed = 150.0
