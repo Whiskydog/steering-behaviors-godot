@@ -10,8 +10,7 @@ var steering_force = Vector2.ZERO
 
 onready var steer_engine: Node = $'/root/SteeringEngine'
 onready var global: Node = $'/root/Global'
-onready var raycast = $RayCast
-onready var raycast2 = $RayCast2
+onready var raycasts = $RayCasts
 
 export(float) var slowing_distance = 100.0
 export(float) var max_speed: float = 260.0
@@ -50,8 +49,8 @@ func _physics_process(_delta):
 	# Rotate node towards velocity heading
 	# Reset acceleration for next T
 	self.rotation = velocity.angle()
-	raycast.set_cast_to(polar2cartesian(velocity.length(), velocity.angle() - rotation) + raycast.position)
-	raycast2.set_cast_to(polar2cartesian(velocity.length(), velocity.angle() - rotation) + raycast2.position)
+	for raycast in raycasts.get_children():
+		raycast.set_cast_to(polar2cartesian(velocity.length(), velocity.angle() - rotation) + raycast.position)
 	acceleration = Vector2.ZERO
 
 
@@ -60,8 +59,8 @@ func _draw():
 		draw_line(Vector2.ZERO, Vector2(10, 0), Color.red)
 		draw_line(Vector2.ZERO, Vector2(0, 10), Color.green)
 		draw_line(Vector2.ZERO, steering_force, Color.mediumblue, 1.0, true)
-		draw_line(raycast.position, raycast.cast_to, Color.black, 1.0, true)
-		draw_line(raycast2.position, raycast2.cast_to, Color.black, 1.0, true)
+		for raycast in raycasts.get_children():
+			draw_line(raycast.position, raycast.cast_to, Color.black, 1.0, true)
 
 
 func add_behavior(target, behavior):

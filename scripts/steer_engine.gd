@@ -113,17 +113,14 @@ func stay_within_rect(boid, rect: Rect2) -> Vector2:
 
 func avoid_obstacles(boid: KinematicBody2D, _unused) -> Vector2:
     var rc = null
-    if boid.raycast.is_colliding():
-        rc = boid.raycast
-    elif boid.raycast2.is_colliding():
-        rc = boid.raycast2
+    for raycast in boid.raycasts.get_children():
+        if raycast.is_colliding():
+            rc = raycast
+            break
     
     if rc != null:
         var collider = rc.get_collider()
         var force = (rc.get_collision_point() - collider.position).normalized() * boid.max_speed
         return force
-    #if boid.raycast.is_colliding():
-    #    var collider = boid.raycast.get_collider()
-    #    var force = (boid.raycast.get_collision_point() - collider.position).normalized() * boid.max_speed
-    #    return force
+
     return Vector2.ZERO
