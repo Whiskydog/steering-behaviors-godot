@@ -14,3 +14,14 @@ script = ExtResource( 2 )
 
 [node name="WanderCircle" type="Node2D" parent="."]
 script = ExtResource( 3 )
+distance_from_parent = 30.0
+
+[node name="RayCast" type="RayCast2D" parent="."]
+position = Vector2( -2, 3.2 )
+enabled = true
+cast_to = Vector2( 0, 0 )
+
+[node name="RayCast2" type="RayCast2D" parent="."]
+position = Vector2( -2, -3.2 )
+enabled = true
+cast_to = Vector2( 0, 0 )

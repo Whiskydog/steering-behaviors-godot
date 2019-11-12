@@ -1,26 +1,28 @@
 extends KinematicBody2D
 
 
-var steer_func_ref
-
-var wander_circle: Node2D
-var target
+var behaviors = []
+var targets = []
 
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
 var steering_force = Vector2.ZERO
 
-var steer_engine: Node = preload('steer_engine.gd').new()
+onready var steer_engine: Node = $'/root/SteeringEngine'
 onready var global: Node = $'/root/Global'
+onready var raycast = $RayCast
+onready var raycast2 = $RayCast2
 
 export(float) var slowing_distance = 100.0
 export(float) var max_speed: float = 260.0
 export(float) var max_force: float = 6.0
+var see_ahead = 150.0
+var wander_circle: Node2D
+var color = Color.black
 
 
 func _ready():
 	wander_circle = $'WanderCircle'
-	self.add_child(steer_engine)
 
 
 func _process(_delta):
@@ -29,9 +31,12 @@ func _process(_delta):
 
 
 func _physics_process(_delta):
-	# Determine steering force based on current behavior
+	# Determine steering force based on current behaviors
 	# Clamped down to max force allowed
-	steering_force = steer_func_ref.call_func(target).clamped(max_force)
+	steering_force = Vector2.ZERO
+	for i in behaviors.size():
+		steering_force += behaviors[i].call_func(self, targets[i])
+	steering_force = steering_force.clamped(max_force)
 
 	# Apply force to acceleration (we could also divide by mass)
 	acceleration += steering_force
@@ -45,6 +50,8 @@ func _physics_process(_delta):
 	# Rotate node towards velocity heading
 	# Reset acceleration for next T
 	self.rotation = velocity.angle()
+	raycast.set_cast_to(polar2cartesian(velocity.length(), velocity.angle() - rotation) + raycast.position)
+	raycast2.set_cast_to(polar2cartesian(velocity.length(), velocity.angle() - rotation) + raycast2.position)
 	acceleration = Vector2.ZERO
 
 
@@ -53,10 +60,12 @@ func _draw():
 		draw_line(Vector2.ZERO, Vector2(10, 0), Color.red)
 		draw_line(Vector2.ZERO, Vector2(0, 10), Color.green)
 		draw_line(Vector2.ZERO, steering_force, Color.mediumblue, 1.0, true)
+		draw_line(raycast.position, raycast.cast_to, Color.black, 1.0, true)
+		draw_line(raycast2.position, raycast2.cast_to, Color.black, 1.0, true)
 
 
-func set_target_and_behavior(target, behavior):
+func add_behavior(target, behavior):
 	if behavior == 'wander':
 		wander_circle.show()
-	self.target = target
-	steer_func_ref = funcref(steer_engine, behavior)
+	targets.append(target)
+	behaviors.append(funcref(steer_engine, behavior))

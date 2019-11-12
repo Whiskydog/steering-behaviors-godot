@@ -8,4 +8,4 @@ func _ready():
     flow_field = preload('flow_field.gd').new(20)
     self.add_child(flow_field)
     flow_field.position -= get_viewport().size/2
-    $'Steerable'.set_target_and_behavior(flow_field, 'follow_flow_field')
+    $'Steerable'.add_behavior(flow_field, 'follow_flow_field')
