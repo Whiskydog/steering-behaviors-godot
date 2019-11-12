@@ -97,12 +97,12 @@ func follow_flow_field(flow_field) -> Vector2:
 
 
 func stay_within_rect(rect: Rect2) -> Vector2:
-    var desired = p.velocity
+    var desired = polar2cartesian(p.max_speed, p.rotation)
 
     if p.position.x < rect.position.x:
-        desired = Vector2(p.max_speed, p.velocity.x)
+        desired = Vector2(p.max_speed, p.velocity.y)
     elif p.position.x > rect.end.x:
-        desired = Vector2(-p.max_speed, p.velocity.x)
+        desired = Vector2(-p.max_speed, p.velocity.y)
 
     if p.position.y < rect.position.y:
         desired = Vector2(p.velocity.x, p.max_speed)
@@ -110,3 +110,7 @@ func stay_within_rect(rect: Rect2) -> Vector2:
         desired = Vector2(p.velocity.x, -p.max_speed)
     
     return desired - p.velocity
+
+
+func avoid_obstacles(obstacles):
+    pass
