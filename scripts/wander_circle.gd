@@ -27,7 +27,7 @@ func _draw():
 
 
 func draw_circle_no_fill(center, _radius, color):
-	var nb_points = 64
+	var nb_points = 32
 	var points_arc = PoolVector2Array()
 
 	for i in range(nb_points + 1):

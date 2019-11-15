@@ -1,0 +1,102 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/debug_ui.gd" type="Script" id=1]
+
+[node name="DebugUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "FPS: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonMenu" type="HBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -272.0
+margin_top = -116.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Column" type="VBoxContainer" parent="ButtonMenu"]
+margin_right = 121.0
+margin_bottom = 116.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Seek" type="Button" parent="ButtonMenu/Column"]
+margin_right = 121.0
+margin_bottom = 20.0
+text = "Seek"
+
+[node name="Arrive" type="Button" parent="ButtonMenu/Column"]
+margin_top = 24.0
+margin_right = 121.0
+margin_bottom = 44.0
+text = "Arrive"
+
+[node name="Pursuit" type="Button" parent="ButtonMenu/Column"]
+margin_top = 48.0
+margin_right = 121.0
+margin_bottom = 68.0
+text = "Pursuit"
+
+[node name="StayWithinRect" type="Button" parent="ButtonMenu/Column"]
+margin_top = 72.0
+margin_right = 121.0
+margin_bottom = 92.0
+text = "Stay Within Rect"
+
+[node name="FollowFlowField" type="Button" parent="ButtonMenu/Column"]
+margin_top = 96.0
+margin_right = 121.0
+margin_bottom = 116.0
+text = "Follow Flow Field"
+
+[node name="VSeparator" type="VSeparator" parent="ButtonMenu"]
+margin_left = 125.0
+margin_right = 129.0
+margin_bottom = 116.0
+
+[node name="Column2" type="VBoxContainer" parent="ButtonMenu"]
+margin_left = 133.0
+margin_right = 272.0
+margin_bottom = 116.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Flee" type="Button" parent="ButtonMenu/Column2"]
+margin_right = 139.0
+margin_bottom = 20.0
+text = "Flee"
+
+[node name="Wander" type="Button" parent="ButtonMenu/Column2"]
+margin_top = 24.0
+margin_right = 139.0
+margin_bottom = 44.0
+text = "Wander"
+
+[node name="Evade" type="Button" parent="ButtonMenu/Column2"]
+margin_top = 48.0
+margin_right = 139.0
+margin_bottom = 68.0
+text = "Evade"
+
+[node name="ObstacleAvoidance" type="Button" parent="ButtonMenu/Column2"]
+margin_top = 72.0
+margin_right = 139.0
+margin_bottom = 92.0
+text = "Obstacle Avoidance"

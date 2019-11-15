@@ -15,7 +15,6 @@ onready var raycasts = $RayCasts
 export(float) var slowing_distance = 100.0
 export(float) var max_speed: float = 260.0
 export(float) var max_force: float = 6.0
-var see_ahead = 150.0
 var wander_circle: Node2D
 var color = Color.black
 
