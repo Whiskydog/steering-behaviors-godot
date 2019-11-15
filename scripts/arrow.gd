@@ -2,26 +2,28 @@ extends Node2D
 
 
 var length: float
+onready var global = $'/root/Global'
 
 
-func _init(pos, length, direction):
-    self.name = 'Arrow'
-    self.position = pos
-    self.length = length
-    self.rotation = direction.angle()
+func _init(pos, _length, direction):
+    name = 'Arrow'
+    position = pos
+    length = _length
+    rotation = direction.angle()
+
+
+func _ready():
+    global.connect('update_nodes', self, '_on_global_update_nodes')
 
 
 func _draw():
-    var end_point = Vector2.RIGHT * (length/2)
+    if global.debug:
+        var end_point = Vector2.RIGHT * (length/2)
 
-    #self.draw_circle(Vector2.ZERO, 1.0, Color.red)
-    self.draw_line(Vector2.LEFT * (length/2), end_point, Color.black, 1.0, true)
-
-    self.draw_line(end_point, end_point + polar2cartesian(2.5, deg2rad(135)), Color.black, 1.0, true)
-    self.draw_line(end_point, end_point + polar2cartesian(2.5, deg2rad(-135)), Color.black, 1.0, true)
+        draw_line(Vector2.LEFT * (length/2), end_point, Color.black, 1.0, true)
+        draw_line(end_point, end_point + polar2cartesian(2.5, deg2rad(135)), Color.black, 1.0, true)
+        draw_line(end_point, end_point + polar2cartesian(2.5, deg2rad(-135)), Color.black, 1.0, true)
 
 
-#func _input(event):
-#    if event.is_action('right') and event.pressed:
-#        self.rotation += deg2rad(10)
-#        self.update()
+func _on_global_update_nodes():
+    update()        
