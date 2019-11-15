@@ -8,9 +8,5 @@ func _ready():
 	self.polygon = poly
 
 
-func _process(_delta):
-	update()
-
-
 func _draw():
 	self.draw_polygon(polygon, [get_parent().color], [], null, null, true)

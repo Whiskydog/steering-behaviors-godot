@@ -127,8 +127,9 @@ func avoid_obstacles(boid: KinematicBody2D, _unused) -> Vector2:
 
 
 func follow_path(boid: KinematicBody2D, path) -> Vector2:
+    var desired = boid.velocity
     var predict_pos = boid.velocity.normalized() * 25 + boid.position
-    var normal_point = path.get_normal_point(predict_pos, path.points[0], path.points[path.points.size()-1])
-    if predict_pos.distance_to(normal_point) > path.radius:
-        return seek_pos(boid, normal_point + (path.points[path.points.size()-1] - path.points[0]).normalized() * 25)
-    return Vector2.ZERO
+    var target = path.get_target(predict_pos)
+    if predict_pos.distance_to(target) > path.radius:
+        desired = seek_pos(boid, target)
+    return desired

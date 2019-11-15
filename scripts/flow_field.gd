@@ -9,13 +9,13 @@ var noise = OpenSimplexNoise.new()
 var z_off = 0.0
 
 
-func _init(resolution):
+func _init(_resolution):
     noise.seed = randi()
     noise.octaves = 20
     noise.period = 5.0
     noise.persistence = 0.2
     noise.lacunarity = 2.5
-    self.resolution = resolution
+    resolution = _resolution
 
 
 func _ready():
@@ -75,4 +75,4 @@ func setup():
 
 
 func _on_global_update_nodes():
-    self.visible = !self.visible
+    visible = !visible
