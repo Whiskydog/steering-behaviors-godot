@@ -3,6 +3,7 @@ extends Node2D
 
 var points = PoolVector2Array([])
 export(float) var radius = 20.0
+var latest_normal_point
 
 
 func _ready():
@@ -26,7 +27,12 @@ func add_point(x, y):
 func get_normal_point(point, a, b):
 	var ap = point - a
 	var ab = b - a
-	return a + ap.project(ab)
+	var normal_point = a + ap.project(ab)
+	if ab.length() < (b-normal_point).length():
+		normal_point = a
+	elif ab.length() < (a-normal_point).length():
+		normal_point = b
+	return normal_point
 
 
 func get_target(point):
@@ -36,14 +42,13 @@ func get_target(point):
 		var a = points[i]
 		var b = points[i+1]
 		var normal_point = get_normal_point(point, a, b)
-		if normal_point.x < min(a.x, b.x) or normal_point.x > max(a.x, b.x):
-			normal_point = b
 		
 		var distance = point.distance_to(normal_point)
 
 		if distance < world_record:
 			world_record = distance
-			target = normal_point + (b-a).normalized() * 25
+			latest_normal_point = normal_point
+			target = normal_point + (b-a).normalized() * 10
 	
 	return target
 

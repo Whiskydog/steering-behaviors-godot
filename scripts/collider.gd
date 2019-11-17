@@ -9,4 +9,4 @@ func _ready():
 
 
 func _draw():
-	self.draw_polygon(polygon, [get_parent().color], [], null, null, true)
+	self.draw_polygon(polygon, [Color.black], [], null, null, true)
