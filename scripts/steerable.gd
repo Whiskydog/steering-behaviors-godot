@@ -16,13 +16,11 @@ export(float) var slowing_distance = 100.0
 export(float) var max_speed: float = 260.0
 export(float) var max_force: float = 6.0
 var wander_circle: Node2D
-var a
-var b
-var i = 0
 
 
 func _ready():
 	wander_circle = $'WanderCircle'
+	velocity = Vector2.RIGHT * max_speed
 
 
 func _process(_delta):
@@ -67,8 +65,9 @@ func _draw():
 func add_behavior(target, behavior):
 	if behavior == 'wander':
 		wander_circle.show()
-	if behavior == 'follow_path':
-		a = target.points[i]
-		b = target.points[i+1]
 	targets.append(target)
 	behaviors.append(funcref(steer_engine, behavior))
+
+
+func predict_future_position(prediction_time):
+	return position + velocity * prediction_time
