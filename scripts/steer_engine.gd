@@ -172,9 +172,9 @@ func steer_to_stay_on_path(boid, path, prediction_time):
 
 
 func separate(boid, boids):
+	var desired_separation = 35.0
 	var sum = Vector2.ZERO
 	var count = 0
-	var desired_separation = 20.0
 	for other in boids:
 		var d = boid.position.distance_to(other.position)
 		if d > 0 and d < desired_separation:
@@ -188,3 +188,62 @@ func separate(boid, boids):
 		sum = sum.normalized() * boid.max_speed
 		return sum - boid.velocity
 	return sum
+
+
+#func separate(boid, boids):
+#	var desired_separation = 35.0
+#	var sum = Vector2.ZERO
+#	var count = 0
+#	for other in boids:
+#		var d = boid.position.distance_to(other.position)
+#		if d > 0 and d < desired_separation:
+#			sum += other.position
+#			count += 1
+#
+#	if count > 0:
+#		sum /= count
+#		return flee_pos(boid, sum)
+#	return sum
+
+
+func cohere(boid, boids):
+	var neighbor_dist = 50.0
+	var sum = Vector2.ZERO
+	var count = 0
+	for other in boids:
+		var d = boid.position.distance_to(other.position)
+		if d > 0 and d < neighbor_dist:
+			sum += other.position
+			count += 1
+	
+	if count > 0:
+		sum /= count
+		return seek_pos(boid, sum)
+	return sum
+
+
+func align(boid, boids):
+	var neighbor_dist = 50.0
+	var sum = Vector2.ZERO
+	var count = 0
+	for other in boids:
+		var d = boid.position.distance_to(other.position)
+		if d > 0 and d < neighbor_dist:
+			sum += other.velocity
+			count += 1
+	
+	if count > 0:
+		sum /= count
+		sum = sum.normalized() * boid.max_speed
+		return sum - boid.velocity
+	return sum
+
+
+func flock(boid, boids):
+	var sep = separate(boid, boids)
+	var ali = align(boid, boids)
+	var coh = cohere(boid, boids)
+
+	sep *= 1.5
+
+	return sep + ali + coh

@@ -11,6 +11,7 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Path" parent="." instance=ExtResource( 3 )]
+editor/display_folded = true
 radius = 50.0
 cyclic = true
 
