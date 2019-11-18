@@ -111,7 +111,7 @@ func stay_within_rect(boid, rect: Rect2) -> Vector2:
 	return desired - boid.velocity
 
 
-func avoid_obstacles(boid: KinematicBody2D, _unused) -> Vector2:
+func avoid_obstacles(boid, _unused) -> Vector2:
 	var rc = null
 	for raycast in boid.raycasts.get_children():
 		if raycast.is_colliding():
@@ -126,21 +126,11 @@ func avoid_obstacles(boid: KinematicBody2D, _unused) -> Vector2:
 	return Vector2.ZERO
 
 
-func follow_path(boid: KinematicBody2D, path) -> Vector2:
-	return steer_to_follow_path(boid, path, 1, 1)
-
-
-func steer_to_stay_on_path(boid, path, prediction_time):
-	var future_position = boid.predict_future_position(prediction_time)
-	var ret_array = path.map_point_to_path(future_position)
-	var on_path = ret_array[0]
-	var tangent = ret_array[1]
-	var outside = ret_array[2]
-
-	if outside < 0:
-		return Vector2.ZERO
-	else:
-		return seek_pos(boid, on_path)
+func follow_path(boid, path) -> Vector2:
+	var desired = steer_to_follow_path(boid, path, .5, 1)
+	if desired == Vector2.ZERO:
+		desired = polar2cartesian(boid.max_speed, boid.velocity.angle())
+	return desired - boid.velocity
 
 
 func steer_to_follow_path(boid, path, prediction_time, direction):
@@ -166,3 +156,35 @@ func steer_to_follow_path(boid, path, prediction_time, direction):
 		var target_path_distance = now_path_distance + path_distance_offset
 		var target = path.map_path_distance_to_point(target_path_distance)
 		return seek_pos(boid, target)
+
+
+func steer_to_stay_on_path(boid, path, prediction_time):
+	var future_position = boid.predict_future_position(prediction_time)
+	var ret_array = path.map_point_to_path(future_position)
+	var on_path = ret_array[0]
+	var tangent = ret_array[1]
+	var outside = ret_array[2]
+
+	if outside < 0:
+		return Vector2.ZERO
+	else:
+		return seek_pos(boid, on_path)
+
+
+func separate(boid, boids):
+	var sum = Vector2.ZERO
+	var count = 0
+	var desired_separation = 20.0
+	for other in boids:
+		var d = boid.position.distance_to(other.position)
+		if d > 0 and d < desired_separation:
+			var diff = (boid.position - other.position).normalized()
+			diff /= d
+			sum += diff
+			count += 1
+
+	if count > 0:
+		sum /= count
+		sum = sum.normalized() * boid.max_speed
+		return sum - boid.velocity
+	return sum

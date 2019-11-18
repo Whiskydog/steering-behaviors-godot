@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/tests/test_separation.gd" type="Script" id=1]
+[ext_resource path="res://scripts/mouse_target.gd" type="Script" id=2]
+[ext_resource path="res://scenes/path.tscn" type="PackedScene" id=3]
+
+[node name="TestSeparation" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="MouseTarget" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Path" parent="." instance=ExtResource( 3 )]
+radius = 50.0
+cyclic = true
+
+[node name="Node2D" type="Node2D" parent="Path"]
+position = Vector2( 129.507, 122.691 )
+
+[node name="Node2D2" type="Node2D" parent="Path"]
+position = Vector2( 836.114, 134.051 )
+
+[node name="Node2D3" type="Node2D" parent="Path"]
+position = Vector2( 845.203, 452.138 )
+
+[node name="Node2D4" type="Node2D" parent="Path"]
+position = Vector2( 486.219, 327.175 )
+
+[node name="Node2D5" type="Node2D" parent="Path"]
+position = Vector2( 134.051, 461.226 )

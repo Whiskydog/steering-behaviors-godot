@@ -4,7 +4,7 @@ extends Node2D
 var rect_margin = Vector2(50, 50)
 onready var global = $'/root/Global'
 onready var steerable = $Steerable
-onready var rect = Rect2(-get_viewport().size/2 + rect_margin, get_viewport().size - rect_margin*2)
+onready var rect = Rect2(rect_margin, get_viewport().size - rect_margin*2)
 
 
 func _ready():

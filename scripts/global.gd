@@ -21,14 +21,14 @@ func _input(event):
 
 
 func keep_inside_camera_bounds(node2d):
-	var vsize = get_viewport().size / 2
+	var vsize = get_viewport().size
 	
 	if node2d.position.x > vsize.x:
-		node2d.position.x = -vsize.x
-	elif node2d.position.x < -vsize.x:
+		node2d.position.x = 0
+	elif node2d.position.x < 0:
 		node2d.position.x = vsize.x
 
 	if node2d.position.y > vsize.y:
-		node2d.position.y = -vsize.y
-	elif node2d.position.y < -vsize.y:
+		node2d.position.y = 0
+	elif node2d.position.y < 0:
 		node2d.position.y = vsize.y

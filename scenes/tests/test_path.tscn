@@ -1,14 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/tests/test_path.gd" type="Script" id=1]
 [ext_resource path="res://scenes/path.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/steerable.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/mouse_target.gd" type="Script" id=4]
 
 [node name="TestPathFollowing" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Path" parent="." instance=ExtResource( 2 )]
+position = Vector2( 521.124, 302.101 )
 
 [node name="Node2D" type="Node2D" parent="Path"]
 position = Vector2( -470.364, 10.5512 )
@@ -35,11 +35,5 @@ position = Vector2( 263.782, 33.1611 )
 position = Vector2( 544.144, 12.0586 )
 
 [node name="Steerable" parent="." instance=ExtResource( 3 )]
-position = Vector2( -789.062, -31.9124 )
+position = Vector2( 48.2642, 268.913 )
 max_speed = 160.0
-
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-
-[node name="MouseTarget" type="Node2D" parent="."]
-script = ExtResource( 4 )
