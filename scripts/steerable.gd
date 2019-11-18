@@ -12,15 +12,19 @@ var steering_force = Vector2.ZERO
 onready var steer_engine: Node = $'/root/SteeringEngine'
 onready var global: Node = $'/root/Global'
 onready var raycasts = $RayCasts
+onready var area_of_awareness = $AreaOfAwareness
 
 export(float) var slowing_distance = 100.0
 export(float) var max_speed: float = 260.0
 export(float) var max_force: float = 6.0
+export(float) var aoa_radius = 50.0
 var wander_circle: Node2D
 
 
 func _ready():
 	wander_circle = $WanderCircle
+	$AreaOfAwareness/Collider.set_shape(CircleShape2D.new())
+	$AreaOfAwareness/Collider.shape.set_radius(aoa_radius)
 
 
 func _process(_delta):

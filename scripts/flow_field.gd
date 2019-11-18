@@ -8,6 +8,8 @@ var resolution
 var noise = OpenSimplexNoise.new()
 var z_off = 0.0
 
+onready var global = $'/root/Global'
+
 
 func _init(_resolution):
     noise.seed = randi()
@@ -25,7 +27,8 @@ func _ready():
     self.cols = int(width / resolution)
     self.rows = int(height / resolution)
     setup()
-    self.hide()
+    if not global.debug:
+        self.hide()
     set_process(true)
     $'/root/Global'.connect('update_nodes', self, '_on_global_update_nodes')
 

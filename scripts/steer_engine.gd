@@ -171,11 +171,11 @@ func steer_to_stay_on_path(boid, path, prediction_time):
 		return seek_pos(boid, on_path)
 
 
-func separate(boid, boids):
+func separate(boid, awareness_area):
 	var desired_separation = 35.0
 	var sum = Vector2.ZERO
 	var count = 0
-	for other in boids:
+	for other in awareness_area.get_overlapping_bodies():
 		var d = boid.position.distance_to(other.position)
 		if d > 0 and d < desired_separation:
 			var diff = (boid.position - other.position).normalized()
@@ -206,11 +206,11 @@ func separate(boid, boids):
 #	return sum
 
 
-func cohere(boid, boids):
+func cohere(boid, awareness_area):
 	var neighbor_dist = 50.0
 	var sum = Vector2.ZERO
 	var count = 0
-	for other in boids:
+	for other in awareness_area.get_overlapping_bodies():
 		var d = boid.position.distance_to(other.position)
 		if d > 0 and d < neighbor_dist:
 			sum += other.position
@@ -222,11 +222,11 @@ func cohere(boid, boids):
 	return sum
 
 
-func align(boid, boids):
+func align(boid, awareness_area):
 	var neighbor_dist = 50.0
 	var sum = Vector2.ZERO
 	var count = 0
-	for other in boids:
+	for other in awareness_area.get_overlapping_bodies():
 		var d = boid.position.distance_to(other.position)
 		if d > 0 and d < neighbor_dist:
 			sum += other.velocity
@@ -239,10 +239,10 @@ func align(boid, boids):
 	return sum
 
 
-func flock(boid, boids):
-	var sep = separate(boid, boids)
-	var ali = align(boid, boids)
-	var coh = cohere(boid, boids)
+func flock(boid, awareness_area):
+	var sep = separate(boid, awareness_area)
+	var ali = align(boid, awareness_area)
+	var coh = cohere(boid, awareness_area)
 
 	sep *= 1.5
 
