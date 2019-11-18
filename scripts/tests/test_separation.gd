@@ -11,5 +11,5 @@ func _ready():
 		boid.position.x = randf() * width
 		boid.position.y = randf() * height
 		boid.add_behavior($Path, 'follow_path')
-		boid.add_behavior(boids, 'separate')
+		boid.add_behavior(boid.area_of_awareness, 'separate')
 		boids.append(boid)
