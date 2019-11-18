@@ -6,14 +6,15 @@ signal update_nodes
 func _ready():
 	randomize()
 	self.set_process(true)
-	var debug_ui = preload('res://scenes/debug_ui.tscn').instance()
-	debug_ui.setup(self)
-	self.add_child(debug_ui)
+	pause_mode = PAUSE_MODE_PROCESS
 
 
 func _input(event):
 	if event.is_action_pressed('quit'):
 		get_tree().quit()
+
+	if event.is_action_pressed('pause'):
+		get_tree().paused = !get_tree().paused
 	
 	if event.is_action_pressed('debug'):
 		debug = not debug

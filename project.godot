@@ -16,14 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Steering Behaviors Test"
-run/main_scene="res://scenes/test_obstacle.tscn"
+run/main_scene="res://scenes/base.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://scripts/global.gd"
 SteeringEngine="*res://scripts/steer_engine.gd"
-Drawer="*res://scripts/drawer.gd"
 
 [display]
 
@@ -75,6 +74,11 @@ wander={
 right={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"unicode":0,"echo":false,"script":null)
+ ]
+}
+pause={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
  ]
 }
 

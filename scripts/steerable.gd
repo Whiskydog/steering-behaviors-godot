@@ -3,6 +3,7 @@ extends KinematicBody2D
 
 var behaviors = []
 var targets = []
+var weights = PoolRealArray()
 
 var velocity = Vector2.ZERO
 var acceleration = Vector2.ZERO
@@ -32,7 +33,8 @@ func _physics_process(_delta):
 	# Clamped down to max force allowed
 	steering_force = Vector2.ZERO
 	for i in behaviors.size():
-		steering_force += behaviors[i].call_func(self, targets[i])
+		var force = behaviors[i].call_func(self, targets[i]) * weights[i]
+		steering_force += force
 	steering_force = steering_force.clamped(max_force)
 
 	# Apply force to acceleration (we could also divide by mass)
@@ -62,11 +64,12 @@ func _draw():
 			draw_line(raycast.position, raycast.cast_to, Color.black, 1.0, true)
 
 
-func add_behavior(target, behavior):
+func add_behavior(target, behavior, weight = 1.0):
 	if behavior == 'wander':
 		wander_circle.show()
 	targets.append(target)
 	behaviors.append(funcref(steer_engine, behavior))
+	weights.append(weight)
 
 
 func predict_future_position(prediction_time):

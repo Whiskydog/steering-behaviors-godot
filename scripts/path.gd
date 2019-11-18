@@ -50,15 +50,14 @@ func _ready():
 
 			total_path_length += lengths[i]
 	
-	hide()
 	$'/root/Global'.connect('update_nodes', self, '_on_global_update_nodes')
 
 
 func _draw():
 	for point in points:
-		draw_circle(point, 2.5, Color.black)
+		draw_circle(point - position, 2.5, Color.black)
 	for i in point_count-1:
-		draw_line(points[i], points[i+1], Color.black, 1.0, true)
+		draw_line(points[i] - position, points[i+1] - position, Color.black, 1.0, true)
 
 
 func add_point(x, y):

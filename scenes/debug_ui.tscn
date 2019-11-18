@@ -23,7 +23,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -272.0
-margin_top = -116.0
+margin_top = -140.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -31,7 +31,7 @@ __meta__ = {
 
 [node name="Column" type="VBoxContainer" parent="ButtonMenu"]
 margin_right = 121.0
-margin_bottom = 116.0
+margin_bottom = 140.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -65,15 +65,21 @@ margin_right = 121.0
 margin_bottom = 116.0
 text = "Follow Flow Field"
 
+[node name="Flock" type="Button" parent="ButtonMenu/Column"]
+margin_top = 120.0
+margin_right = 121.0
+margin_bottom = 140.0
+text = "Flock"
+
 [node name="VSeparator" type="VSeparator" parent="ButtonMenu"]
 margin_left = 125.0
 margin_right = 129.0
-margin_bottom = 116.0
+margin_bottom = 140.0
 
 [node name="Column2" type="VBoxContainer" parent="ButtonMenu"]
 margin_left = 133.0
 margin_right = 272.0
-margin_bottom = 116.0
+margin_bottom = 140.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -100,3 +106,15 @@ margin_top = 72.0
 margin_right = 139.0
 margin_bottom = 92.0
 text = "Obstacle Avoidance"
+
+[node name="FollowPath" type="Button" parent="ButtonMenu/Column2"]
+margin_top = 96.0
+margin_right = 139.0
+margin_bottom = 116.0
+text = "Follow Path"
+
+[node name="Separation" type="Button" parent="ButtonMenu/Column2"]
+margin_top = 120.0
+margin_right = 139.0
+margin_bottom = 140.0
+text = "Separation"
