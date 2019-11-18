@@ -6,4 +6,4 @@ onready var steerable = $Steerable
 
 
 func _ready():
-	steerable.add_behavior($Path, 'follow_path')
+	steerable.add_behavior(path, 'follow_path')

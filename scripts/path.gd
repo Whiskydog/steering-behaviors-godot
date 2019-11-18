@@ -19,8 +19,6 @@ var chosen
 func _ready():
 	point_count = get_children().size()
 	total_path_length = 0.0
-	if cyclic:
-		point_count += 1
 	lengths = PoolRealArray()
 	points = PoolVector2Array()
 	normals = PoolVector2Array()
@@ -29,15 +27,18 @@ func _ready():
 
 	for point in get_children():
 		add_point(point.global_position.x, point.global_position.y)
+	if cyclic:
+		point_count += 1
+		points.append(points[0])
 
 	for i in range(point_count):
-		var close_cycle = cyclic and i == point_count - 1
-		var j
-		if close_cycle:
-			j = 0
-		else:
-			j = i
-		points[i] = points[j]
+		#var close_cycle = cyclic and i == point_count - 1
+		#var j
+		#if close_cycle:
+		#	j = 0
+		#else:
+		#	j = i
+		#points[i] = points[j]
 
 		if i > 0:
 			normals.append(Vector2.ZERO)
@@ -54,10 +55,10 @@ func _ready():
 
 
 func _draw():
-	for point in get_children():
-		draw_circle(point.position, 2.5, Color.black)
-	for i in get_child_count()-1:
-		draw_line(get_child(i).position, get_child(i+1).position, Color.black, 1.0, true)
+	for point in points:
+		draw_circle(point, 2.5, Color.black)
+	for i in point_count-1:
+		draw_line(points[i], points[i+1], Color.black, 1.0, true)
 
 
 func add_point(x, y):

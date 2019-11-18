@@ -19,8 +19,7 @@ var wander_circle: Node2D
 
 
 func _ready():
-	wander_circle = $'WanderCircle'
-	velocity = Vector2.RIGHT * max_speed
+	wander_circle = $WanderCircle
 
 
 func _process(_delta):
@@ -46,10 +45,11 @@ func _physics_process(_delta):
 		velocity = move_and_slide(velocity)
 
 	# Rotate node towards velocity heading
+	# Raycast to half the velocity length
 	# Reset acceleration for next T
 	self.rotation = velocity.angle()
 	for raycast in raycasts.get_children():
-		raycast.set_cast_to(polar2cartesian(velocity.length(), velocity.angle() - rotation) + raycast.position)
+		raycast.set_cast_to(polar2cartesian(velocity.length()/2, velocity.angle() - rotation) + raycast.position)
 	acceleration = Vector2.ZERO
 
 

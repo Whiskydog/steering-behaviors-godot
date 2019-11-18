@@ -19,7 +19,7 @@ func _ready():
 func setup(global):
 	self.hide()
 	global.connect('update_nodes', self, '_on_global_update_nodes')
-	self.rect_position = -global.get_viewport().size/2
+	#self.rect_position = -global.get_viewport().size/2
 
 
 func _process(_delta):
