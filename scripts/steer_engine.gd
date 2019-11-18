@@ -127,16 +127,42 @@ func avoid_obstacles(boid: KinematicBody2D, _unused) -> Vector2:
 
 
 func follow_path(boid: KinematicBody2D, path) -> Vector2:
-	var desired = boid.velocity
-	var predict_pos = boid.velocity.normalized() * 25 + boid.position
-	var normal_point = path.get_normal_point(predict_pos, boid.a, boid.b)
-	if normal_point == boid.b:
-		boid.i = clamp(boid.i+1, 0, path.points.size()-2)
-		boid.a = path.points[boid.i]
-		boid.b = path.points[boid.i+1]
-		normal_point = path.get_normal_point(predict_pos, boid.a, boid.b)
-	$'../TestPathFollowing'.normal_point = normal_point
-	var target = normal_point + (boid.b-boid.a).normalized() * 10
-	if predict_pos.distance_to(normal_point) > path.radius:
-		desired = seek_pos(boid, target)
-	return desired
+	return steer_to_follow_path(boid, path, 1, 1)
+
+
+func steer_to_stay_on_path(boid, path, prediction_time):
+	var future_position = boid.predict_future_position(prediction_time)
+	var ret_array = path.map_point_to_path(future_position)
+	var on_path = ret_array[0]
+	var tangent = ret_array[1]
+	var outside = ret_array[2]
+
+	if outside < 0:
+		return Vector2.ZERO
+	else:
+		return seek_pos(boid, on_path)
+
+
+func steer_to_follow_path(boid, path, prediction_time, direction):
+	var path_distance_offset = direction * prediction_time * boid.max_speed
+	var future_position = boid.predict_future_position(prediction_time)
+	var now_path_distance = path.map_point_to_path_distance(boid.position)
+	var future_path_distance = path.map_point_to_path_distance(future_position)
+
+	var right_way
+	if path_distance_offset > 0:
+		right_way = now_path_distance < future_path_distance
+	else:
+		right_way = now_path_distance > future_path_distance
+
+	var ret_array = path.map_point_to_path(future_position)
+	var on_path = ret_array[0]
+	var tangent = ret_array[1]
+	var outside = ret_array[2]
+
+	if outside < 0 && right_way:
+		return Vector2.ZERO
+	else:
+		var target_path_distance = now_path_distance + path_distance_offset
+		var target = path.map_path_distance_to_point(target_path_distance)
+		return seek_pos(boid, target)
