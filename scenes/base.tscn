@@ -8,12 +8,10 @@
 script = ExtResource( 1 )
 
 [node name="DebugLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="DebugUI" parent="DebugLayer" instance=ExtResource( 2 )]
 
 [node name="DrawerLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 layer = -1
 
 [node name="Drawer" parent="DrawerLayer" instance=ExtResource( 3 )]

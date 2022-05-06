@@ -17,7 +17,6 @@ script = ExtResource( 3 )
 distance_from_parent = 30.0
 
 [node name="RayCasts" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="RayCast" type="RayCast2D" parent="RayCasts"]
 position = Vector2( -2, 3.2 )
