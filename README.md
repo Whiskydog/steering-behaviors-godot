@@ -1,5 +1,11 @@
 # steering-behaviors-godot
 
+<p align="center">
+  <img src="https://i.imgur.com/nr6IaIO.png">
+</p>
+
+---
+
 Steering behaviors implementation in Godot Engine. Mainly for self-educational purposes.
 
 This Godot project showcases some of the Steering Behaviors introduced by [Craig W. Reynolds](https://www.red3d.com/cwr/) in his paper [Steering Behaviors For Autonomous Characters](https://www.red3d.com/cwr/steer/gdc99/).
