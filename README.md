@@ -48,4 +48,4 @@ Implemented behaviors are:
 
 - Separation
   
-  Please refer to Reynold's paper for detailed information on these behaviors.
+Please refer to Reynold's paper for detailed information on these behaviors.
